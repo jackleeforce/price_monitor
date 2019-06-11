@@ -24,29 +24,7 @@ class WeChatSender:
         self.corp_secrect = corp_secret
         self.agent_id = agent_id
 
-        # self.__init_log()
         self.__obtain_access_token()
-
-    # 初始化日志相关，配置文件和终端同时输出。
-    def __init_log(self):
-        logger = logging.getLogger('')
-        logger.setLevel(logging.DEBUG)
-        formatter = logging.Formatter(
-            '%(asctime)s-%(name)s-%(message)s',
-            datefmt='%Y-%m-%d %H:%M:%S')
-
-        # 使用FileHandler输出到文件
-        fh = logging.FileHandler('WeChat_Sender.log')
-        fh.setLevel(logging.DEBUG)
-        fh.setFormatter(formatter)
-
-        # 使用StreamHandler输出到屏幕
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.DEBUG)
-        ch.setFormatter(formatter)
-
-        logger.addHandler(ch)
-        logger.addHandler(fh)
 
     # 获取 access token
     def __obtain_access_token(self):

@@ -2,13 +2,32 @@
 import logging
 import os
 import ssl
-import time
 import urllib.error
 import urllib.request
 from urllib.parse import urlparse
 
 from user_agent import generate_user_agent
 
+
+def init_log(filename):
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter(
+        '%(asctime)s-%(name)s-%(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S')
+
+    # 使用FileHandler输出到文件
+    fh = logging.FileHandler(filename)
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(formatter)
+
+    # 使用StreamHandler输出到屏幕
+    ch = logging.StreamHandler()
+    ch.setLevel(logging.DEBUG)
+    ch.setFormatter(formatter)
+
+    logger.addHandler(ch)
+    logger.addHandler(fh)
 
 def init_ssl():
     ssl._create_default_https_context = ssl._create_unverified_context
