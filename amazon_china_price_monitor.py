@@ -92,6 +92,10 @@ if __name__ == '__main__':
 
     func.init_log('price_monitor.log')
 
+    wechat_sender = WeChatSender(corpid, corpsecret, agentid)
+
+    wechat_sender.send_text_msg('Start to monitor amazon china bug price')
+
     while True:
 
         try:
