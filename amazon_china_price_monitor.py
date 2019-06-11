@@ -103,6 +103,8 @@ if __name__ == '__main__':
         except Exception as e:
             logging.exception(e)
             logging.error("Something wrong,quit job")
+            wechat_sender.send_text_msg('Something wrong,quit job')
+            break
 
         time.sleep(60)
 
