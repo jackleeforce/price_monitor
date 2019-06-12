@@ -13,6 +13,7 @@ import requests
 error_code_successful = 0
 error_code_busy = -1
 error_code_invalid_access_token = 40014
+error_code_access_token_expired = 42001
 
 
 class WeChatSender:
@@ -81,7 +82,7 @@ class WeChatSender:
                 if response.status_code == 200:
                     error_code = json.loads(response.content)['errcode']
 
-                    if error_code == error_code_invalid_access_token:
+                    if error_code == error_code_invalid_access_token or error_code == error_code_access_token_expired:
                         self.__access_token = None
                         retry_count += 1
                     elif error_code == error_code_busy:
