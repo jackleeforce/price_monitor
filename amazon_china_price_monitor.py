@@ -96,13 +96,22 @@ if __name__ == '__main__':
 
     wechat_sender.send_text_msg('Start to monitor amazon china bug price')
 
-    while True:
+    retryCount = 0
 
+    while True:
+        error_occured = False
         try:
             monitor_amazon_china()
         except Exception as e:
             logging.exception(e)
-            logging.error("Something wrong,quit job")
+            logging.error('Something wrong,retry count:' + retryCount)
+            wechat_sender.send_text_msg('Something wrong,retry count:' + retryCount)
+            retryCount += 1
+            error_occured = True
+
+        if not error_occured:
+            retryCount = 0
+        elif retryCount >= 3:
             wechat_sender.send_text_msg('Something wrong,quit job')
             break
 
