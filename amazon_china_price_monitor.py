@@ -104,8 +104,8 @@ if __name__ == '__main__':
             monitor_amazon_china()
         except Exception as e:
             logging.exception(e)
-            logging.error('Something wrong,retry count:' + retryCount)
-            wechat_sender.send_text_msg('Something wrong,retry count:' + retryCount)
+            logging.error('Something wrong,retry count:' + str(retryCount))
+            wechat_sender.send_text_msg('Something wrong,retry count:' + str(retryCount))
             retryCount += 1
             error_occured = True
 
