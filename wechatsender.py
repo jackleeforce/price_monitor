@@ -54,7 +54,6 @@ class WeChatSender:
         max_retry_count = 3
         retry_count = 0
 
-        url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + self.__access_token
         header = {
             "Content-Type": "application/json"
         }
@@ -73,6 +72,8 @@ class WeChatSender:
         while retry_count < max_retry_count:
             if self.__access_token is None:
                 self.__obtain_access_token()
+
+            url = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=" + self.__access_token
 
             try:
                 response = self.__session.post(url, data=json.dumps(form_data).encode('utf-8'), headers=header)
