@@ -17,5 +17,9 @@
 ![](./img/WX20191120-170447.png)
  
 4. 运行方法:
- nohup python3 amazon_china_price_monitor.py &
+nohup python3 amazon_china_price_monitor.py &
+ 
+5. 运气好，商品降价到你设置的心理价位的话:
+你的企业微信对应应用中会收到如下类似信息,快去抢把😄
+![](./img/WechatIMG176.png)
 
