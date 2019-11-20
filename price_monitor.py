@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 # @Author : JackLee
-# @contact: lijiah@landicorp.com
+# @contact: jackleeforce@gmail.com
 # @Time : 2019-06-10 16:18
 # @File : price_monitor.py
 # @desc:
