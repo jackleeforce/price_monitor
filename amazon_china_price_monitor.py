@@ -16,9 +16,9 @@ from user_agent import generate_user_agent
 import func
 from wechatsender import WeChatSender
 
-corpid = 'ww8d16902788f36764'
-corpsecret = 'u7hTPhjrtxY4yRO3LJ6SRDdfgWbP1-n-XtHBGKE7DMw'
-agentid = '1000003'
+corpid = '企业微信-企业ID'
+corpsecret = '企业微信-应用管理-Secret'
+agentid = '企业微信-应用管理-AgentId'
 
 
 def shrink_price(str_price):
