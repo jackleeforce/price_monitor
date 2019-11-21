@@ -29,13 +29,18 @@ def shrink_price(str_price):
 
 
 def monitor_amazon_china():
+
+
+    # 需要监测的目标商品 URL 等信息。
     monitor_targets = [
         {'url': 'https://www.amazon.cn/dp/B07CRZK9BX', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'last_notify_date': ''},
+         'keyword': '10TB', 'last_notify_date': ''},
         {'url': 'https://www.amazon.cn/dp/B07G3QMPB5', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'last_notify_date': ''},
+         'keyword': '10TB', 'last_notify_date': ''},
         {'url': 'https://www.amazon.cn/dp/B07CMH78R5', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'last_notify_date': ''}]
+         'keyword': '10TB', 'last_notify_date': ''},
+        {'url': 'https://www.amazon.cn/dp/B07G364YHX', 'ideal_price': 100.00, 'lowst_price_history': 0.00,
+         'keyword': '10TB', 'last_notify_date': ''}]
 
     session = requests.session()
 
@@ -44,6 +49,7 @@ def monitor_amazon_china():
         ideal_price = monitor_target.get('ideal_price')
         lowst_price_history = monitor_target.get('lowst_price_history')
         last_notify__date = monitor_target.get('last_notify_date')
+        keyword = monitor_target.get('keyword')
 
         o = urlparse(target_url)
         ref = o.scheme + '://' + o.hostname
@@ -59,11 +65,16 @@ def monitor_amazon_china():
 
         selector = etree.HTML(html_source)
 
+        # 获取商品信息。
         title = (selector.xpath('//span[@id="productTitle"]/text()')[0]).strip()
         current_price = selector.xpath('//span[@id="priceblock_ourprice"]/text()')[0]
         current_float_price = shrink_price(current_price)
 
         logging.debug(title + ',' + current_price + ',url:' + target_url)
+
+        # 设定商品标题中必须包含指定关键字。
+        if keyword.strip('') != '' and keyword.strip('') not in title:
+            continue
 
         if current_float_price <= ideal_price:
             current_date = time.strftime("%Y-%m-%d", time.localtime())
@@ -71,6 +82,7 @@ def monitor_amazon_china():
             if current_date != last_notify__date:
                 monitor_target['last_notify_date'] = current_date
 
+                # 组装发送消息。
                 message = 'Item name:{0} \nurl:{1}\nreached your ideal price:\n{2}\ncurrent price:\n{3}\n'.format(title,
                                                                                                                   target_url,
                                                                                                                   ideal_price,
