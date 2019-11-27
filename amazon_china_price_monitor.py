@@ -86,7 +86,7 @@ def monitor_amazon_china():
                                                                                                                   current_float_price)
 
                 if lowst_price_history == 0.00 or current_float_price <= lowst_price_history:
-                    monitor_target['lowst_price_history'] = current_prices
+                    monitor_target['lowst_price_history'] = current_prices[0]
                     message += 'This price is the lowst price in the history'
 
                 logging.debug(message)
