@@ -29,18 +29,10 @@ def shrink_price(str_price):
 
 
 def monitor_amazon_china():
-
-
     # 需要监测的目标商品 URL 等信息。
     monitor_targets = [
-        {'url': 'https://www.amazon.cn/dp/B07CRZK9BX', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'keyword': '10TB', 'last_notify_date': ''},
-        {'url': 'https://www.amazon.cn/dp/B07G3QMPB5', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'keyword': '10TB', 'last_notify_date': ''},
-        {'url': 'https://www.amazon.cn/dp/B07CMH78R5', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'keyword': '10TB', 'last_notify_date': ''},
-        {'url': 'https://www.amazon.cn/dp/B07G364YHX', 'ideal_price': 100.00, 'lowst_price_history': 0.00,
-         'keyword': '10TB', 'last_notify_date': ''}]
+        {'url': 'https://www.amazon.cn/dp/B07X4V2M3B', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
+         'keyword': '12TB', 'last_notify_date': ''}]
 
     session = requests.session()
 
@@ -67,10 +59,15 @@ def monitor_amazon_china():
 
         # 获取商品信息。
         title = (selector.xpath('//span[@id="productTitle"]/text()')[0]).strip()
-        current_price = selector.xpath('//span[@id="priceblock_ourprice"]/text()')[0]
-        current_float_price = shrink_price(current_price)
+        current_prices = selector.xpath('//span[@id="priceblock_ourprice"]/text()')
 
-        logging.debug(title + ',' + current_price + ',url:' + target_url)
+        if len(current_prices) == 0:
+            logging.debug(title + ',' + '无货' + ',url:' + target_url)
+            continue
+
+        current_float_price = shrink_price(current_prices[0])
+
+        logging.debug(title + ',' + current_prices[0] + ',url:' + target_url)
 
         # 设定商品标题中必须包含指定关键字。
         if keyword.strip('') != '' and keyword.strip('') not in title:
@@ -89,7 +86,7 @@ def monitor_amazon_china():
                                                                                                                   current_float_price)
 
                 if lowst_price_history == 0.00 or current_float_price <= lowst_price_history:
-                    monitor_target['lowst_price_history'] = current_price
+                    monitor_target['lowst_price_history'] = current_prices
                     message += 'This price is the lowst price in the history'
 
                 logging.debug(message)
