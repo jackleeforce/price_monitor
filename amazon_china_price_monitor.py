@@ -30,8 +30,8 @@ def shrink_price(str_price):
 def monitor_amazon_china():
     # 需要监测的目标商品 URL 等信息。
     monitor_targets = [
-        {'url': 'https://www.amazon.cn/dp/B07X4V2M3B', 'ideal_price': 900.00, 'lowst_price_history': 0.00,
-         'keyword': '12TB', 'last_notify_date': ''}]
+        {'url': 'https://www.amazon.cn/dp/B07G364YHX', 'ideal_price': 1000.00, 'lowst_price_history': 0.00,
+         'keyword': '10TB', 'last_notify_date': ''}]
 
     session = requests.session()
 
