@@ -20,7 +20,6 @@ corpid = '企业微信-企业ID'
 corpsecret = '企业微信-应用管理-Secret'
 agentid = '企业微信-应用管理-AgentId'
 
-
 def shrink_price(str_price):
     new_price = str_price.replace('￥', '')
     new_price = new_price.replace(',', '')
@@ -46,7 +45,18 @@ def monitor_amazon_china():
         o = urlparse(target_url)
         ref = o.scheme + '://' + o.hostname
         ua = generate_user_agent()
-        session.headers['User-Agent'] = ua
+        session.headers[
+            'User-Agent'] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+        session.headers[
+            "Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
+        session.headers['Accept-Encoding'] = "gzip, deflate, br"
+        session.headers['Accept-Language'] = "zh-CN,zh;q=0.9,en;q=0.8"
+        session.headers['Cache-Control'] = "no-cache"
+        session.headers['Connection'] = "keep-alive"
+        session.headers['Pragma'] = "no-cache"
+        session.headers['Sec-Fetch-Dest'] = "document"
+        session.headers['Sec-Fetch-Mode'] = "navigate"
+        session.headers['Sec-Fetch-Site'] = "none"
         session.headers['referer'] = ref
 
         response = session.get(target_url)
