@@ -130,7 +130,7 @@ if __name__ == '__main__':
 
         if not error_occured:
             retryCount = 0
-        elif retryCount >= 3:
+        elif retryCount >= 15:
             wechat_sender.send_text_msg('Something wrong,quit job')
             break
 
