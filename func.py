@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import logging
 import os
+import random
 import ssl
+import time
 import urllib.error
 import urllib.request
 from urllib.parse import urlparse
@@ -28,6 +30,7 @@ def init_log(filename):
 
     logger.addHandler(ch)
     logger.addHandler(fh)
+
 
 def init_ssl():
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -58,3 +61,15 @@ def download_image(image_url, download_dir, name):
 
     except Exception as e:
         logging.exception(e)
+
+
+def random_sleep_minutes(min, max):
+    sleeptime = random.randint(min, max)
+
+    time.sleep(sleeptime * 60)
+
+
+def random_sleep_seconds(min, max):
+    sleeptime = random.randint(min, max)
+
+    time.sleep(sleeptime)

@@ -33,9 +33,13 @@ def monitor_amazon_china():
         {'url': 'https://www.amazon.cn/dp/B07G364YHX', 'ideal_price': 1000.00, 'lowst_price_history': 0.00,
          'keyword': '10TB', 'last_notify_date': ''}]
 
+
     session = requests.session()
 
     for monitor_target in monitor_targets:
+
+        func.random_sleep_seconds(1,3)
+
         target_url = monitor_target.get('url')
         ideal_price = monitor_target.get('ideal_price')
         lowst_price_history = monitor_target.get('lowst_price_history')
@@ -64,6 +68,8 @@ def monitor_amazon_china():
         response.raise_for_status()
 
         html_source = response.text
+
+        logging.debug("html source:"+html_source)
 
         selector = etree.HTML(html_source)
 
@@ -134,6 +140,6 @@ if __name__ == '__main__':
             wechat_sender.send_text_msg('Something wrong,quit job')
             break
 
-        time.sleep(60)
+        func.random_sleep_seconds(1,2)
 
     exit(0)
