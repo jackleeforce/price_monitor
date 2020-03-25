@@ -20,6 +20,7 @@ corpid = '企业微信-企业ID'
 corpsecret = '企业微信-应用管理-Secret'
 agentid = '企业微信-应用管理-AgentId'
 
+
 def shrink_price(str_price):
     new_price = str_price.replace('￥', '')
     new_price = new_price.replace(',', '')
@@ -33,12 +34,11 @@ def monitor_amazon_china():
         {'url': 'https://www.amazon.cn/dp/B07G364YHX', 'ideal_price': 1000.00, 'lowst_price_history': 0.00,
          'keyword': '10TB', 'last_notify_date': ''}]
 
-
     session = requests.session()
 
     for monitor_target in monitor_targets:
 
-        func.random_sleep_seconds(1,3)
+        func.random_sleep_seconds(1, 3)
 
         target_url = monitor_target.get('url')
         ideal_price = monitor_target.get('ideal_price')
@@ -69,7 +69,7 @@ def monitor_amazon_china():
 
         html_source = response.text
 
-        logging.debug("html source:"+html_source)
+        logging.debug("html source:" + html_source)
 
         selector = etree.HTML(html_source)
 
@@ -140,6 +140,6 @@ if __name__ == '__main__':
             wechat_sender.send_text_msg('Something wrong,quit job')
             break
 
-        func.random_sleep_seconds(1,2)
+        func.random_sleep_seconds(1, 2)
 
     exit(0)
