@@ -48,9 +48,9 @@ def monitor_amazon_china():
 
         o = urlparse(target_url)
         ref = o.scheme + '://' + o.hostname
-        ua = generate_user_agent()
+        ua = generate_user_agent(device_type='desktop')
         session.headers[
-            'User-Agent'] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36"
+            'User-Agent'] = ua
         session.headers[
             "Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
         session.headers['Accept-Encoding'] = "gzip, deflate, br"
